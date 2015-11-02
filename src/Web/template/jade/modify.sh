@@ -1,0 +1,12 @@
+jade -P -w login.jade -o ../ &
+jade -P -w main.jade -o ../ &
+jade -P -w question.jade -o ../ &
+jade -P -w question_detail.jade -o ../ &
+jade -P -w my.jade -o ../ &
+jade -P -w admin.jade -o ../ &
+jade -P -w rank.jade -o ../ &
+jade -P -w error.jade -o ../ &
+jade -P -w design.jade -o ../ &
+jade -P -w register.jade -o ../ &
+jade -P -w discuss.jade -o ../ &
+jade -P -w compiler.jade -o ../ &

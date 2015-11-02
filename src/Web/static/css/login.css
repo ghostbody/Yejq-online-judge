@@ -1,0 +1,27 @@
+body {
+	background-color: #fff;
+}
+
+#navigation {
+	background-color: #3385FF;
+}
+
+#navigation a {
+	color: white;
+	font-size:20pt; 
+}
+
+#navigation p {
+	color:white;
+}
+
+#login_container {
+	width: 40%;
+	position: relative;
+	top: 150px;
+
+}
+
+#login_fenge {
+	border-top: 1px dashed #333;
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "input": "27",
+    "output": "3\n",
+    "score": "25"
+  },
+  {
+    "input": "20",
+    "output": "2\n",
+    "score": "25"
+  },
+  {
+    "input": "12",
+    "output": "1\n",
+    "score": "25"
+  },
+  {
+    "input": "17",
+    "output": "0\n",
+    "score": "25"
+  }
+]

@@ -1,0 +1,17 @@
+[
+    {
+        "input" : "2 1",
+        "output" : "1\n",
+        "score" : 40
+    },
+    {
+        "input" : "3 4",
+        "output" : "-1\n",
+        "score" : 30
+    },
+    {
+        "input" : "5 5",
+        "output" : "0\n",
+        "score" : 30
+    }
+]

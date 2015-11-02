@@ -1,0 +1,119 @@
+extends layout2
+
+block content
+  link(rel="stylesheet" href="{{static_url('codemirror/lib/codemirror.css')}}")
+  link(rel="stylesheet" href="{{static_url('css/CodeMirror.css')}}")
+  script(src="{{static_url('codemirror/lib/codemirror.js')}}")
+  script(script src="{{static_url('codemirror/mode/clike/clike.js')}}")
+  script(script src="{{static_url('js/questionsubmit.js')}}")
+
+  .container
+    .row
+      .col-md-3
+        .panel.panel-primary
+          .panel-heading Statistics
+          ul.list-group
+            li.list-group-item Difficulty: {{question.difficulty}}
+            li.list-group-item Author: {{question.author}}
+            li.list-group-item From : {{question.fromwhere}}
+            li.list-group-item Time Limit : {{question.timelimit}} MS
+            li.list-group-item Memory Limit : {{question.memlimit}} MB
+            li.list-group-item Submit : {{question.submit}}
+            |               {% if question.submit != None %}
+            li.list-group-item Average : {{'%.2f' % (float(question.grade)/(question.submit))}} pts
+            |               {% else %}
+            li.list-group-item Average : 0.00
+            |               {% end %}
+      .col-md-8
+        .panel.panel-primary
+          .panel-heading {{question.pid}} : {{question.title}}
+          .panel-body
+            {% raw question.description %}
+            br
+          .panel-footer
+            #submit_code
+              button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal')
+                | submit
+          #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+            .modal-dialog.modal-lg
+              .modal-content
+                .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                  h4#myModalLabel.modal-title Submit Your Code
+                .modal-body
+                  form.form-horizontal(role='form')
+                    .form-group
+                      label.col-sm-2.control-label Question
+                      .col-sm-10
+                        p#pid.form-control-static {{question.pid}}
+                    .form-group
+                      label.col-sm-2.control-label User
+                      .col-sm-10
+                        p#username.form-control-static {{user.username}}
+                    .form-group
+                      label.col-sm-2.control-label Language
+                      .col-sm-10
+                        select.form-control(name='language', value='language')
+                          option(value='c') c (gun gcc 4.9.1)
+                          option(value='c++') c++ (gun g++ 4.9.1)
+                          option(value='python2') Python 2 (python 2.7.8)
+                          option(value='python3') Python 3 (python 3.4)                            
+                          option(value='java') Java (open JDK 1.7)
+                          option(value='php') php (php 5.5.12)
+                          option(value='ruby') Ruby (ruby 2.1.2p95)
+                          option(value='perl') Perl (perl 5, version 20, subversion 1 (v5.20.1))
+                          option(value='pascal') Pascal (Free Pascal Compiler version 2.6.4+dfsg-3)
+                          option(value='go') GO (version xgcc 4.9.1)
+                          option(value='lua') Lua (version: 5.2.3)
+                          option(value='haskell') Haskell (The Glorious Glasgow Haskell Compilation System version 7.6.3)
+                    .form-group
+                      label.col-sm-2.control-label Notice
+                      .col-sm-10
+                        p * c compiler use version c99
+                        p * c++ has stl
+                        p * java code must named class with "main"
+                        p * php code should add script tags <?..?>
+                    .form-group
+                      label.col-sm-2.control-label Code
+                      .col-sm-10
+                        textarea.form-control(rows='0', cols='0', name='code', id="code")
+                  .modal-footer
+                    button.btn.btn-default(type='button', data-dismiss='modal') Close
+                    button#code_submit.btn.btn-primary(type='button') Submit
+            #statusModal.modal.fade
+              .modal-dialog
+                .modal-content
+                  .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                      span(aria-hidden='true') ×
+                    h4.modal-title Status
+                  .modal-body
+                    h1#result Waiting...
+                    pre#report
+                  .modal-footer
+                    button.btn.btn-default(type='button', data-dismiss='modal') Close
+    .row
+      .col-md-3
+        .panel.panel-primary
+          .panel-heading Passed
+          ul.list-group
+            li.list-group-item Accepted : {{len(rank)}}
+      .col-md-8
+        ul.list-group
+          | {% for each in rank%}
+          li.list-group-item.list-group-item-success
+            | {{each.stime}}: {{each.username}} Passed using language {{each.language}} with running time {{each.runtime}}ms and memory {{each.runmem}}KB
+          |             {% end %}
+
+
+    script.
+      var textarea = document.getElementById("code");
+      var editor = CodeMirror.fromTextArea(textarea, {
+        matchBrackets: true,
+        mode: "text/x-csrc",
+        styleActiveLine: true,
+        lineWrapping: true,
+        lineNumbers: true,
+        inputStyle: "contenteditable"
+      });

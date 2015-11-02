@@ -1,0 +1,27 @@
+extends layout1
+
+block function
+  a.tooltip-test(href='/register', data-toggle='tooltip', data-placement='bottom', title='Register') Register
+
+block content
+  #login_container.container
+    form.form-horizontal(role='form', action='/login', method='post')
+      .form-group
+        label.col-sm-2.control-label(for='inputEmail3') Username
+        .col-sm-10
+          input.form-control(type='text', placeholder='Username', name='username')
+      .form-group
+        label.col-sm-2.control-label(for='inputPassword3') Password
+        .col-sm-10
+          input#inputPassword3.form-control(type='password', placeholder='Password', name='password')
+      .form-group
+        .col-sm-offset-2.col-sm-10
+          .checkbox
+            label
+              input(type='checkbox')
+              |  Remember me
+      .form-group
+        .col-sm-offset-2.col-sm-10
+          button.btn.btn-default(type='submit') Sign in
+          br
+          .col-sm-offset-2.col-sm-12 {{message}}

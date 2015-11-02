@@ -1,0 +1,59 @@
+extends layout2
+
+block content
+  body
+    script(src="{{static_url('js/discuss.js')}}")
+    .container
+        .col-sm-2
+            a.btn.btn-success.btn-lg(role='button', href='javascript:void(0)', data-toggle='modal', data-target='#myModal') POST ONE
+        .col-sm-8
+            |{%for each in comments%}
+            .alert.alert-info
+              div.mainComment
+                p {{each.username}}
+                  a.reply.pull-right.btn.btn-success(data-toggle='modal', data-target='#myModal2', role='button', href="javascript:void", data-uid="{{each.did}}") reply
+                p {{each.stime}}
+                pre {{each.content}}  
+              hr
+              |{%for reply in each.reply%}
+              div.reply
+                p {{reply.username}} at {{reply.stime}} :
+                pre {{reply.content}}
+              |{%end%}
+            |{%end%}
+
+        #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+          .modal-dialog.modal-lg
+            .modal-content
+              .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                  span(aria-hidden='true') ×
+                h4#myModalLabel.modal-title Post my comment
+              .modal-body
+                form.form-horizontal(role='form')
+                  .form-group
+                    label.col-sm-2.control-label Comment
+                    .col-sm-10
+                      textarea#comment.form-control(rows='20', cols='20', name='code')
+              .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+                button#post.btn.btn-primary(type='button') Post
+
+        #myModal2.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+            .modal-dialog.modal-lg
+              .modal-content
+                .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                  h4#myModalLabel.modal-title Reply
+                .modal-body
+                  form.form-horizontal(role='form')
+                    input#repuid(type="text", value="", hidden="hidden")
+                    .form-group
+                      label.col-sm-2.control-label Reply 
+                      .col-sm-10
+                        textarea#recontent.form-control(rows='5', cols='5', name='code')
+                .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+                  button#reply.btn.btn-primary(type='button') REPLY
+

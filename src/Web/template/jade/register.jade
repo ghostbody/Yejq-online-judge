@@ -1,0 +1,47 @@
+extends layout1
+
+block function
+  a.tooltip-test(href='/login', data-toggle='tooltip', data-placement='bottom', title='Login') Login
+
+block content
+  link(href="{{static_url('css/main.css')}}", rel='stylesheet')
+  .container
+    .page-header
+      h1
+        | Register
+        small creat a new account
+      p.text-warning
+        span#error *
+        |  are necessary options
+    form.form-horizontal(role='form', method='post', action='/register')
+      .form-group
+        label.col-sm-2.control-label
+          | username
+          span#error *
+        .col-sm-5
+          input.form-control(type='text', name='username', placeholder='username')
+        .col-sm-5
+          p.registerDes the length of username should be 6-16
+      .form-group
+        label.col-sm-2.control-label
+          | email
+          span#error *
+        .col-sm-5
+          input.form-control(type='text', name='email', placeholder='email')
+      .form-group
+        label.col-sm-2.control-label
+          | password
+          span#error *
+        .col-sm-5
+          input.form-control(type='password', name='password', placeholder='password')
+        .col-sm-5
+          p.registerDes the length of password should be 8-16
+      .form-group
+        label.col-sm-2.control-label
+          | input again
+          span#error *
+        .col-sm-5
+          input.form-control(type='password', name='confirm', placeholder='confirm password')
+      .form-group
+        .col-sm-offset-2.col-sm-10
+          button.btn.btn-default(type='submit') Submit

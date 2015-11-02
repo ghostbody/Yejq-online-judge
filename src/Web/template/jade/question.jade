@@ -1,0 +1,57 @@
+extends layout2
+
+block content
+  body
+    .container
+      .panel.panel-primary
+        .panel-heading Question List
+        table.table
+          tr
+            th.place_center(width='15%') Id
+            th.place_center(width='25%') Title
+            th.place_center(width='15%') Submit
+            th.place_center(width='15%') My Socre
+            th.place_center(width='15%') Average
+            th.place_center(width='15%') Difficulty
+            |             {% for question in questions %}
+            |{% if not question.submit %}
+            |{% set question.submit = 0 %}
+            |{% end %}
+            |{% if not question.grade %}
+            |{% set question.grade = 0 %}
+            |{% end %}
+            |             {% if question.valid == 1%}
+          tr
+            td.place_center {{question.pid}}
+            td.place_left
+              a(href='/questions?query={{question.pid}}') {{question.title}}
+            td.place_center {{question.submit}}
+            |{%set flag = 0 %}
+            |{% for each in myRecord%}
+            |{% if each.pid == question.pid%}
+
+            | {% if each.grade == 100 %}
+            td.place_center.success {{each.grade}} pts    
+                img(src="{{static_url('images/right.gif')}}", alt="")
+            | {%set flag = 1%}
+            |               {% else %}
+            td.place_center.fail {{each.grade}} pts   
+                img(src="{{static_url('images/wrong.png')}}", alt="")
+            | {%set flag = 1%}
+            |               {%end %}
+
+            |{%set flag = 1%}
+            |{%end%}
+            |{%end%}
+            |{%if flag != 1%}
+            td.place_center.fail None
+            |{%end%}
+
+            |               {% if question.submit != 0%}
+            td.place_center {{'%.2f' % (float(question.grade)/(question.submit))}} pts
+            |               {% else %}
+            td.place_center 0.00
+            |               {% end %}
+            td.place_center {{question.difficulty}}
+          |             {% end %}
+          |             {% end %}

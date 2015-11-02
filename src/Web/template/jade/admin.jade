@@ -1,0 +1,149 @@
+extends layout2
+
+block content
+  body
+    script(script src="{{static_url('js/admin.js')}}")
+    script(script src="{{static_url('js/getcoderep.js')}}")
+    | {% if user.authority == 3 %}
+    .container
+      ul.nav.nav-tabs(role='tablist')
+        li.active(role='presentation')
+          a(href='#status', aria-controls='home', role='tab', data-toggle='tab') Status
+        li(role='presentation')
+          a(href='#questions', aria-controls='profile', role='tab', data-toggle='tab') Questions
+        li(role='presentation')
+          a(href='#users', aria-controls='profile', role='tab', data-toggle='tab') Users
+      .tab-content
+        br
+
+
+        #status.tab-pane.fade.in.active(role='tabpanel')
+          .panel.panel-primary
+            .panel-heading Status
+            table.table
+              tr
+                th.place_center(width='10%') RunId
+                th.place_center(width='10%') QusetionId
+                th.place_center(width='10%') Author
+                th.place_center(width='15%') Language
+                th.place_center(width='10%') Grade
+                th.place_center(width='15%') Report
+                th.place_center(width='15%') Code
+                th.place_center(width='15%') Operation
+              |             {% for statu in status %}
+              tr
+                td.place_center {{statu.runid}}
+                td.place_center {{statu.pid}}
+                td.place_center {{statu.username}}
+                td.place_center {{statu.language}}
+                td.place_center {{statu.grade}}
+                td.place_center
+                  button.report.btn.btn-info(type='button', data-toggle='modal', data-runid="{{statu.runid}}")
+                    | Report
+                td.place_center
+                  // Button trigger modal
+                  button.source.btn.btn-primary(type='button', data-toggle='modal',data-uid="{{statu.uid}}", data-language="{{statu.language}}", data-runid="{{statu.runid}}")
+                    | Source
+                td.place_center
+                  | {% if statu.remark==0 %}
+                  a.btn.btn-danger.kill(role='button', data-runid="{{statu.runid}}" href="javascript:void(0);") Kill
+                  |               {% else %}
+                  a.btn.btn-info.rejudge(role='button', data-runid="{{statu.runid}}" href="javascript:void(0);") Rejudge
+                  |               {% end %}
+              |             {% end %}
+
+              // Modal0
+              .modal.fade(id='myModal', tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+                .modal-dialog
+                  .modal-content
+                    .modal-header
+                      button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                      h4#myModalLabel.modal-title View Sorce Code
+                    .modal-body
+                      pre.place_left#codecontent
+                                                          
+                    .modal-footer
+                      button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+              // Modal1
+              .modal.fade(id='myModal1', tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+                .modal-dialog
+                  .modal-content
+                    .modal-header
+                      button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                      h4#myModalLabel.modal-title View Report
+                    .modal-body
+                      pre.place_left#codecontent1
+                                                          
+                    .modal-footer
+                      button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+        br
+        #users.tab-pane.fade(role='tabpanel')
+          .panel.panel-primary
+            .panel-heading User List
+            table.table
+              tr
+                th.place_center(width='10%') UId
+                th.place_center(width='10%') Auth.
+                th.place_center(width='20%') RegTime
+                th.place_center(width='20%') Username
+                th.place_center(width='20%') Email
+                th.place_center(width='20%') Opertion
+              |             {% for auser in users %}
+              tr
+                td.place_center {{auser.uid}}
+                td.place_center {{auser.authority}}
+                td.place_center {{auser.register_time}}
+                td.place_center {{auser.username}}
+                td.place_center {{auser.email}}
+                td.place_center
+                  | {% if auser.authority == 0 %}
+                  a.uservalidate.btn.btn-success(role='button', href='javascript:void(0)', data-uid='{{auser.uid}}') Validate
+                  |                 {% else %}
+                  a.userinvalidate.btn.btn-danger(role='button', href='javascript:void(0)', , data-uid='{{auser.uid}}') Invalidate
+                  |                 {% end %}
+              |             {% end %}
+        #questions.tab-pane.fade(role='tabpanel')
+          .panel.panel-primary
+            .panel-heading Question List
+            table.table
+              tr
+                th.place_center(width='15%') Id
+                th.place_center(width='15%') Title
+                th.place_center(width='15%') Submit
+                th.place_center(width='10%') Average
+                th.place_center(width='10%') Difficulty
+                th.place_center(width='10%') Opertion
+              |             {% for question in questions %}
+              |{%if not question.submit%}
+              |{%set question.submit = 0%}
+              |{%end%}
+              |{%if not question.grade%}
+              |{%set question.grade = 0%}
+              |{%end%}              
+              tr
+                td.place_center {{question.pid}}
+                td.place_left
+                  a(href='/questions?query={{question.pid}}') {{question.title}}
+                td.place_center {{question.submit}}
+                |               {% if question.submit != 0%}
+                td.place_center {{'%.2f' % (float(question.grade)/(question.submit))}} pts
+                |               {% else %}
+                td.place_center 0
+                |               {% end %}
+                td.place_center {{question.difficulty}}
+
+                td.place_center
+                  | {% if question.valid == 0 %}
+                  a.validate.btn.btn-success(role='button', href='javascript:void(0)', data-pid='{{question.pid}}') Validate
+                  |                 {% else %}
+                  a.invalidate.btn.btn-danger(role='button', href='javascript:void(0)', , data-pid='{{question.pid}}') Invalidate
+                  |                 {% end %}
+              |             {% end %}
+    |     {% else %}
+    .container
+      .alert.alert-danger(role='alert') Insufficient permissions
+    |     {% end %}

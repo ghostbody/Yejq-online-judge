@@ -1,0 +1,22 @@
+extends layout2
+
+block content
+  .container
+    .panel.panel-primary
+      .panel-heading Rank List
+      table.table
+        tr
+          th.place_center(width='25%') User
+          th.place_center(width='25%') Submit
+          th.place_center(width='25%') Score
+          th.place_center(width='25%') Rank
+        |             {% set i = 1 %}
+        |             {% for auser in users %}
+        tr
+          td.place_center {{auser.username}}
+          td.place_center {{auser.submit}}
+          td.place_center {{auser.grade}}
+          td.place_center
+            span#accepted {{i}}
+        |             {% set i = i + 1 %}
+        |             {% end %}

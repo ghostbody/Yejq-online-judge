@@ -1,0 +1,156 @@
+extends layout2
+
+block content
+  body
+    .container
+      script(src="{{static_url('js/getcoderep.js')}}")
+      div(role='tabpanel')
+        // Nav tabs
+        ul.nav.nav-tabs(role='tablist')
+          li.active(role='presentation')
+            a(href='#personal', aria-controls='profile', role='tab', data-toggle='tab') Personal
+          li(role='presentation')
+            a(href='#status', aria-controls='home', role='tab', data-toggle='tab') My Status
+        // Tab panes
+        .tab-content
+          #status.tab-pane.fade(role='tabpanel')
+            .row
+              .col-md-12
+                br
+                .panel.panel-primary
+                  .panel-heading
+                    h3.panel-title My Status
+                  // List group
+                  table.table
+                    thead
+                      tr
+                        th.place_center(width='9%') RunId
+                        th.place_center(width='9%') QuestionId
+                        th.place_center(width='14%') SubmitTime
+                        th.place_center(width='9%') RunTime(MS)
+                        th.place_center(width='9%') RunMem(KB)
+                        th.place_center(width='5%') Language
+                        th.place_center(width='15%') Grade
+                        th.place_center(width='10%') SorceCode
+                        th.place_center(width='10%') Report
+                    tbody
+                      | {% for statu in status %}
+                      tr
+                        td.place_center {{statu.runid}}
+                        td.place_center {{statu.pid}}
+                        td.place_center {{statu.stime}}
+                        td.place_center {{statu.runtime}}
+                        td.place_center {{statu.runmem}}
+                        td.place_center {{statu.language}}
+                        td.place_center
+                          | {% if statu.grade == 100 %}
+                          span#accepted Accepted
+                          |             {% else %}
+                          span#error {{statu.grade}}
+                          |             {% end %}
+                        td.place_center
+                          // Button trigger modal
+                          button.source.btn.btn-primary(type='button', data-toggle='modal', data-uid="{{user.uid}}", data-language="{{statu.language}}", data-runid="{{statu.runid}}")
+                            | Source
+                        td.place_center
+                          button.report.btn.btn-info(type='button', data-toggle='modal', data-runid="{{statu.runid}}")
+                            | Report
+                            {% end %}
+                      // Modal0
+                      .modal.fade(id='myModal', tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+                        .modal-dialog
+                          .modal-content
+                            .modal-header
+                              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                span(aria-hidden='true') ×
+                              h4#myModalLabel.modal-title View Sorce Code
+                            .modal-body
+                              pre.place_left#codecontent
+                                                                  
+                            .modal-footer
+                              button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+                      // Modal1
+                      .modal.fade(id='myModal1', tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+                        .modal-dialog
+                          .modal-content
+                            .modal-header
+                              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                span(aria-hidden='true') ×
+                              h4#myModalLabel.modal-title View Report
+                            .modal-body
+                              pre.place_left#codecontent1
+                                                                  
+                            .modal-footer
+                              button.btn.btn-default(type='button', data-dismiss='modal') Close
+                      |           
+          #personal.tab-pane.fade.in.active(role='tabpanel')
+            br
+            .row
+              .col-md-7
+                .panel.panel-primary
+                  .panel-heading
+                    h3.panel-title  Details of {{user.username}}
+                  ul.list-group
+                    table.table
+                      thead
+                        tr
+                          th.place_center(width='40%') Information
+                          th.place_center(width='40%') Details
+                      tbody
+                        tr
+                          td.place_center User
+                          td.place_left {{user.username}}
+                        tr
+                          td.place_center Email
+                          td.place_left: p#MyEmail {{user.email}}
+                        tr
+                          td.place_center Register Time
+                          td.place_left {{user.register_time}}
+                        tr
+                          td.place_center(colspan='2')
+                            // Button trigger modal
+                            button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal3')
+                              | change
+                            // Modal
+                            form#change_form(role='form', method='post')
+                              #myModal3.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+                                .modal-dialog
+                                  .modal-content
+                                    .modal-header
+                                      button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                        span(aria-hidden='true') ×
+                                      h4#myModalLabel.modal-title Information seetings
+                                    .modal-body
+                                      table.table
+                                        tr
+                                          th.place_center(width='40%') Information
+                                          th.place_center(width='40%') Changes
+                                        tr
+                                          td.place_center User
+                                          td {{user.username}}
+                                        tr
+                                          td.place_center Password
+                                          td.place_left
+                                            input.form-control(type='password', placeholder='New Password', name='new_password')
+                                        tr
+                                          td.place_center Email
+                                          td.place_left
+                                            .input-group
+                                              span.input-group-addon @
+                                              input.form-control(type='text', placeholder='New Email', name='new_email')
+                                        tr
+                                          td.place_center Register Time
+                                          td.place_center {{user.register_time}}
+                                    .modal-footer
+                                      button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                      button#user_change.btn.btn-primary(type='button') Save changes
+              .col-md-4
+                .panel.panel-primary
+                  .panel-heading
+                    h3.panel-title  Statics for {{user.username}}
+                  ul.list-group
+                    li.list-group-item Submit : {{user.submit}}
+                    li.list-group-item Status : {{user.status}}
+                    li.list-group-item TotalScore : {{user.score}}
+            // add here

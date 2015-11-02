@@ -1,0 +1,122 @@
+body {
+	background-color: #fff;
+}
+
+a {
+	text-decoration: none;
+	outline-style: none;
+}
+
+a:visited, a:link, a:active, a:hover {
+    text-decoration: none;
+    outline-style: none;
+}
+
+.btn:visited, .btn:link, .btn:active, .btn:hover {
+    text-decoration: none;
+    outline-style: none;
+}
+
+#navigation {
+	background-color: #3385FF;
+}
+
+#navigation a {
+	color: white;
+	font-size:20pt; 
+}
+
+#navigation p {
+	color:white;
+}
+
+#navigation ul {
+	background-color: #3385FF;
+}
+
+#login_container {
+	width: 40%;
+	position: relative;
+	top: 150px;
+}
+
+#login_fenge {
+	border-top: 1px dashed #333;
+}
+
+#search {
+	width: 200px;
+      	float: left;
+    	margin-left: 10px;
+     	max-width: 95%;
+}
+
+.container {
+	width: 900px;
+}
+
+.footer {
+	padding-top: 20px;
+	width: 800px;
+	margin-left: 5%;
+	margin-bottom: 30px;
+	margin-top: 20px;
+	overflow: hidden;
+	padding-top: 6px;
+	color: #999;
+	border-top: 1px dashed #DDD;
+	font-size: 10pt;
+}
+
+.place_center {
+	text-align: center;
+}
+
+.place_left {
+	text-align: left;
+}
+
+.place_right {
+    text-align:right;
+}
+
+#accepted {
+	color: #3c763d;
+	font-weight: bold;
+}
+
+#error {
+	color: #FF6666;
+	font-weight: bold;
+}
+
+#submit_code {
+	text-align: center;
+	margin: 2px;
+}
+
+.fail {
+	background-color: #F2DEDE;
+}
+
+.success {
+	background-color: #DFF0D8;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    background-color:#3385F2;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    background-color:#3385F2;
+}
+
+.registerDes {
+    line-height:28px;
+    color:gray;
+    font-style: italic;
+}
+
+.fixed {
+    position: fixed;
+}

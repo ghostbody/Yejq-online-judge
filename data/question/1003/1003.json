@@ -1,0 +1,22 @@
+[
+    {
+        "input" : "4 2 5 7",
+        "output" : "20x^2+38x+14\n",
+        "score" : 10
+    },
+    {
+        "input" : "4 0 5 2",
+        "output" : "20x^2+8x\n",
+        "score" : 35
+    },
+    {
+        "input" : "3 2 0 -1",
+        "output" : "-3x-2\n",
+        "score" : 35
+    },
+    {
+        "input" : "0 0 0 0",
+        "output" : "0\n",
+        "score" : 20
+    }
+]

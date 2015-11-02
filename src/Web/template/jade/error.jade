@@ -1,0 +1,8 @@
+extends layout1
+
+block content
+  #login_container.container
+    .alert.alert-danger(role='alert')
+      span.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
+      span.sr-only Error:
+      | {{message}}

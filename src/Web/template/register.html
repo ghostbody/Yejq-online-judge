@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=nouser-scalable=no">
+    <title>yejq online judge</title>
+    <!-- Bootstrap-->
+    <link href="{{static_url('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{static_url('css/login.css')}}" rel="stylesheet">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins)-->
+    <script src="{{static_url('js/jquery-2.1.1.min.js')}}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed-->
+    <script src="{{static_url('js/bootstrap.min.js')}}"></script>
+  </head>
+  <body>
+    <nav id="navigation" role="navigation" class="navbar navbar-default navbar-fixed-bottomnavbar-fixed-bottom">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display-->
+        <div class="navbar-header">
+          <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">Yejq Online Judge</a>
+        </div>
+        <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/login" data-toggle="tooltip" data-placement="bottom" title="Login" class="tooltip-test">Login</a></li>
+            <li><a href="http://yejq.sinaapp.com/" data-toggle="tooltip" data-placement="bottom" title="About" class="tooltip-test">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!--start main-->
+    <link href="{{static_url('css/main.css')}}" rel="stylesheet">
+    <div class="container">
+      <div class="page-header">
+        <h1>Register<small>creat a new account</small></h1>
+        <p class="text-warning"><span id="error">*</span> are necessary options</p>
+      </div>
+      <form role="form" method="post" action="/register" class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">username<span id="error">*</span></label>
+          <div class="col-sm-5">
+            <input type="text" name="username" placeholder="username" class="form-control">
+          </div>
+          <div class="col-sm-5">
+            <p class="registerDes">the length of username should be 6-16</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">email<span id="error">*</span></label>
+          <div class="col-sm-5">
+            <input type="text" name="email" placeholder="email" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">password<span id="error">*</span></label>
+          <div class="col-sm-5">
+            <input type="password" name="password" placeholder="password" class="form-control">
+          </div>
+          <div class="col-sm-5">
+            <p class="registerDes">the length of password should be 8-16</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">input again<span id="error">*</span></label>
+          <div class="col-sm-5">
+            <input type="password" name="confirm" placeholder="confirm password" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!--end main-->
+  </body>
+</html>

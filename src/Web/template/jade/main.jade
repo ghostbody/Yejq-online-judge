@@ -1,0 +1,29 @@
+extends layout2
+
+block content
+  .container
+    .row
+      .col-md-3
+        .panel.panel-primary
+          .panel-heading System Info
+          ul.list-group
+            li.list-group-item Judge worker: {{judge_worker_num}}
+            li.list-group-item Submit: {{submit_num}}
+
+      .col-md-7
+        ul.list-group
+          li.list-group-item.list-group-item-info 2015-8-15 System update version 2.0
+          li.list-group-item.list-group-item-success 2015-8-15 Server online
+          li.list-group-item.list-group-item-success 2015-10-1 System update version 3.0
+
+        ul.list-group
+          | {% for each in status%}
+          | {% if each.grade == 0 %}
+          li.list-group-item.list-group-item-danger
+            | {{each.stime}}: userID {{each.uid}} Failed #quesion{{each.pid}}
+          | {%else%}
+          li.list-group-item.list-group-item-success 
+            | {{each.stime}}: userID {{each.uid}} got {{each.grade}}pts at #quesion{{each.pid}}
+          | {% end %}
+
+          | {% end %}

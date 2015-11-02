@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=nouser-scalable=no">
+    <title>yejq online judge</title>
+    <!-- Bootstrap-->
+    <link href="{{static_url('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{static_url('css/main.css')}}" rel="stylesheet">
+    <script src="{{static_url('js/jquery-2.1.1.min.js')}}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed-->
+    <script src="{{static_url('js/main.js')}}"></script>
+    <script src="{{static_url('js/bootstrap.min.js')}}"></script>
+  </head>
+  <body>
+    <nav id="navigation" role="navigation" class="navbar navbar-default navbar-fixed-bottomnavbar-fixed-bottom">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">YOJ</a>
+        </div>
+        <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/" data-toggle="tooltip" data-placement="bottom" title="Home page" class="tooltip-test">Home</a></li>
+            <li><a href="/questions" data-toggle="tooltip" data-placement="bottom" title="List of Questions" class="tooltip-test">Questions</a></li>
+            <li><a href="/rank" data-toggle="tooltip" data-placement="bottom" title="RankList" class="tooltip-test">Rank</a></li>
+            <li><a href="/my" data-toggle="tooltip" data-placement="bottom" title="My" class="tooltip-test">Mine</a></li>
+            <li><a href="/discuss" data-toggle="tooltip" data-placement="bottom" title="discuss problems" class="tooltip-test">Discuss</a></li>
+            <li><a href="/compiler" data-toggle="tooltip" data-placement="bottom" title="compiler" class="tooltip-test">Compiler</a></li>
+            <li><a href="http://yejq.sinaapp.com/" data-toggle="tooltip" data-placement="bottom" title="About This System" class="tooltip-test">About</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">{{user.username}}<span class="caret"></span></a>
+              <ul aria-labelledby="dropdownMenu1" class="dropdown-menu">
+                <li><a href="/my">MyProfile</a></li>{% if user.authority >= 2 %}
+                <li><a href="/design">Design</a></li>{% end %}
+                {% if user.authority >= 2 %}
+                <li><a href="/admin">Admin</a></li>{% end %}
+                <li role="separator" class="divider"></li>
+                <li><a href="/logout">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <body>
+      <script script src="{{static_url('js/admin.js')}}"></script>
+      <script script src="{{static_url('js/getcoderep.js')}}"></script>{% if user.authority == 3 %}
+      <div class="container">
+        <ul role="tablist" class="nav nav-tabs">
+          <li role="presentation" class="active"><a href="#status" aria-controls="home" role="tab" data-toggle="tab">Status</a></li>
+          <li role="presentation"><a href="#questions" aria-controls="profile" role="tab" data-toggle="tab">Questions</a></li>
+          <li role="presentation"><a href="#users" aria-controls="profile" role="tab" data-toggle="tab">Users</a></li>
+        </ul>
+        <div class="tab-content"><br>
+          <div id="status" role="tabpanel" class="tab-pane fade in active">
+            <div class="panel panel-primary">
+              <div class="panel-heading">Status</div>
+              <table class="table">
+                <tr>
+                  <th width="10%" class="place_center">RunId</th>
+                  <th width="10%" class="place_center">QusetionId</th>
+                  <th width="10%" class="place_center">Author</th>
+                  <th width="15%" class="place_center">Language</th>
+                  <th width="10%" class="place_center">Grade</th>
+                  <th width="15%" class="place_center">Report</th>
+                  <th width="15%" class="place_center">Code</th>
+                  <th width="15%" class="place_center">Operation</th>
+                </tr>            {% for statu in status %}
+                <tr>
+                  <td class="place_center">{{statu.runid}}</td>
+                  <td class="place_center">{{statu.pid}}</td>
+                  <td class="place_center">{{statu.username}}</td>
+                  <td class="place_center">{{statu.language}}</td>
+                  <td class="place_center">{{statu.grade}}</td>
+                  <td class="place_center">
+                    <button type="button" data-toggle="modal" data-runid="{{statu.runid}}" class="report btn btn-info">Report</button>
+                  </td>
+                  <td class="place_center">
+                    <!-- Button trigger modal-->
+                    <button type="button" data-toggle="modal" data-uid="{{statu.uid}}" data-language="{{statu.language}}" data-runid="{{statu.runid}}" class="source btn btn-primary">Source</button>
+                  </td>
+                  <td class="place_center">{% if statu.remark==0 %}<a role="button" data-runid="{{statu.runid}}" href="javascript:void(0);" class="btn btn-danger kill">Kill</a>              {% else %}<a role="button" data-runid="{{statu.runid}}" href="javascript:void(0);" class="btn btn-info rejudge">Rejudge</a>              {% end %}</td>
+                </tr>            {% end %}
+                <!-- Modal0-->
+                <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                        <h4 id="myModalLabel" class="modal-title">View Sorce Code</h4>
+                      </div>
+                      <div class="modal-body">
+                        <pre id="codecontent" class="place_left"></pre>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Modal1-->
+                <div id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                        <h4 id="myModalLabel" class="modal-title">View Report</h4>
+                      </div>
+                      <div class="modal-body">
+                        <pre id="codecontent1" class="place_left"></pre>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </table>
+            </div>
+          </div><br>
+          <div id="users" role="tabpanel" class="tab-pane fade">
+            <div class="panel panel-primary">
+              <div class="panel-heading">User List</div>
+              <table class="table">
+                <tr>
+                  <th width="10%" class="place_center">UId</th>
+                  <th width="10%" class="place_center">Auth.</th>
+                  <th width="20%" class="place_center">RegTime</th>
+                  <th width="20%" class="place_center">Username</th>
+                  <th width="20%" class="place_center">Email</th>
+                  <th width="20%" class="place_center">Opertion</th>
+                </tr>            {% for auser in users %}
+                <tr>
+                  <td class="place_center">{{auser.uid}}</td>
+                  <td class="place_center">{{auser.authority}}</td>
+                  <td class="place_center">{{auser.register_time}}</td>
+                  <td class="place_center">{{auser.username}}</td>
+                  <td class="place_center">{{auser.email}}</td>
+                  <td class="place_center">{% if auser.authority == 0 %}<a role="button" href="javascript:void(0)" data-uid="{{auser.uid}}" class="uservalidate btn btn-success">Validate</a>                {% else %}<a role="button" href="javascript:void(0)" , data-uid="{{auser.uid}}" class="userinvalidate btn btn-danger">Invalidate</a>                {% end %}</td>
+                </tr>            {% end %}
+              </table>
+            </div>
+          </div>
+          <div id="questions" role="tabpanel" class="tab-pane fade">
+            <div class="panel panel-primary">
+              <div class="panel-heading">Question List</div>
+              <table class="table">
+                <tr>
+                  <th width="15%" class="place_center">Id</th>
+                  <th width="15%" class="place_center">Title</th>
+                  <th width="15%" class="place_center">Submit</th>
+                  <th width="10%" class="place_center">Average</th>
+                  <th width="10%" class="place_center">Difficulty</th>
+                  <th width="10%" class="place_center">Opertion</th>
+                </tr>            {% for question in questions %}
+                {%if not question.submit%}
+                {%set question.submit = 0%}
+                {%end%}
+                {%if not question.grade%}
+                {%set question.grade = 0%}
+                {%end%}              
+                <tr>
+                  <td class="place_center">{{question.pid}}</td>
+                  <td class="place_left"><a href="/questions?query={{question.pid}}">{{question.title}}</a></td>
+                  <td class="place_center">{{question.submit}}</td>              {% if question.submit != 0%}
+                  <td class="place_center">{{'%.2f' % (float(question.grade)/(question.submit))}} pts</td>              {% else %}
+                  <td class="place_center">0</td>              {% end %}
+                  <td class="place_center">{{question.difficulty}}</td>
+                  <td class="place_center">{% if question.valid == 0 %}<a role="button" href="javascript:void(0)" data-pid="{{question.pid}}" class="validate btn btn-success">Validate</a>                {% else %}<a role="button" href="javascript:void(0)" , data-pid="{{question.pid}}" class="invalidate btn btn-danger">Invalidate</a>                {% end %}</td>
+                </tr>            {% end %}
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>    {% else %}
+      <div class="container">
+        <div role="alert" class="alert alert-danger">Insufficient permissions</div>
+      </div>    {% end %}
+    </body>
+    <div class="container">
+      <div class="footer"><span>powered by yejq 2015</span></div>
+    </div>
+  </body>
+</html>

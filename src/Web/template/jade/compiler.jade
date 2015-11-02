@@ -1,0 +1,64 @@
+extends layout2
+
+block content
+  body
+    link(rel="stylesheet" href="{{static_url('codemirror/lib/codemirror.css')}}")
+    link(rel="stylesheet" href="{{static_url('css/CodeMirror.css')}}")
+    script(src="{{static_url('js/compiler.js')}}")
+    script(src="{{static_url('codemirror/lib/codemirror.js')}}")
+    script(script src="{{static_url('codemirror/mode/clike/clike.js')}}")
+    .container
+      .row
+        .col-md-2
+          br
+          br
+          .row
+            button.report.btn.btn-lg.btn-success(autocomplete="off", data-loading-text="Running...", type='button', id="submit")
+              | Run Code
+          br
+          .row
+            button.report.btn.btn-lg.btn-danger(autocomplete="off", type='button', id="reset")
+              | Reset
+          br
+          .row
+            p language
+            select.form-control(name='language', value='language')
+              option(value='c') c (gun gcc 4.9.1)
+              option(value='c++') c++ (gun g++ 4.9.1)
+              option(value='python2') Python 2 (python 2.7.8)
+              option(value='python3') Python 3 (python 3.4)                            
+              option(value='java') Java (open JDK 1.7)
+              option(value='php') php (php 5.5.12)
+              option(value='ruby') Ruby (ruby 2.1.2p95)
+              option(value='perl') Perl (perl 5, version 20, subversion 1 (v5.20.1))
+              option(value='pascal') Pascal (Free Pascal Compiler version 2.6.4+dfsg-3)
+              option(value='go') GO (version xgcc 4.9.1)
+              option(value='lua') Lua (version: 5.2.3)
+              option(value='haskell') Haskell (The Glorious Glasgow Haskell Compilation System version 7.6.3)
+        .col-md-10
+          .panel.panel-primary
+            .panel-heading Source Code
+            textarea.form-control(rows='0', cols='0', name='code', id="code")
+
+      .row
+        .col-md-10.col-md-offset-2
+          .panel.panel-primary
+            .panel-heading Input Stream
+            textarea.form-control(rows='10', cols='0', name='input', id="input")
+      .row
+        .col-md-10.col-md-offset-2
+          .panel.panel-primary
+            .panel-heading Output Stream
+            textarea.form-control(rows='10', cols='0', name='input', id="output")
+
+  script.
+    var textarea = document.getElementById("code");
+    var editor = CodeMirror.fromTextArea(textarea, {
+      matchBrackets: true,
+      mode: "text/x-csrc",
+      styleActiveLine: true,
+      lineWrapping: true,
+      lineNumbers: true,
+      inputStyle: "contenteditable"
+    });
+          

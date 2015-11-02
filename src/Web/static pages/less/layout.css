@@ -1,0 +1,10 @@
+#banner {
+  background-color: #3385FF;
+}
+#banner p,
+#banner a {
+  color: white;
+}
+#banner a {
+  font-size: 20pt;
+}

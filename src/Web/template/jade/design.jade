@@ -1,0 +1,68 @@
+extends layout2
+
+block content
+  | {% if user.authority >= 2%}
+  .container
+    .page-header
+      h1
+        | Question Designer 
+        small The question need to be verified
+      p.text-warning
+        span#error *
+        |  are necessary inputs
+    form.form-horizontal(role='form', method='post', action='/design')
+      .form-group
+        label.col-sm-2.control-label
+          | Title
+          span#error *
+        .col-sm-5
+          input.form-control(type='text', name='title', placeholder='Title')
+      .form-group
+        label.col-sm-2.control-label Author
+        .col-sm-5
+          p#username.form-control-static(placeholder='Author') {{user.username}}（{{user.authority}}）
+      .form-group
+        label.col-sm-2.control-label
+          | From
+          span#error *
+        .col-sm-5
+          input.form-control(type='text', name='fromwhere', placeholder='From')
+      .form-group
+        label.col-sm-2.control-label
+          | Description (HTML)
+          span#error *
+        .col-sm-8
+          textarea.form-control(rows='3', cols='70', name='description')
+      .form-group
+        label.col-sm-2.control-label
+          | Input and output (JSON)
+          span#error *
+        .col-sm-8
+          textarea.form-control(rows='10', cols='70', name='inputoutput', placeholder='[{"input": "program input", "output": "program output"},{}...]')
+      .form-group
+        label.col-sm-2.control-label
+          | Source Code
+          span#error *
+        .col-sm-8
+          textarea.form-control(rows='10', cols='70', name='source')
+      .form-group
+        label.col-sm-2.control-label Difficulty
+        .col-sm-5
+          input.form-control(type='text', name='difficulty', placeholder='(double) 0.1 by default')
+      .form-group
+        label.col-sm-2.control-label TimeLimit
+        .col-sm-5
+          input.form-control(type='text', name='timelimit', placeholder='(int MS) 1000 by default')
+      .form-group
+        label.col-sm-2.control-label MemoryLimit
+        .col-sm-5
+          input.form-control(type='text', name='memlimit', placeholder='(int KB) 32*1024 by default')
+      .form-group
+        .col-sm-offset-2.col-sm-10
+          button.btn.btn-default(type='submit') Submit
+  |     {% else %}
+  .container
+    .alert.alert-danger(role='alert') Insufficient permissions
+  |     {% end %}
+  // end main
+

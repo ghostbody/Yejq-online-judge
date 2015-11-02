@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=nouser-scalable=no" >
+    <title>yejq online judge</title>
+
+    <!-- Bootstrap -->
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{static_url("css/main.css")}}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+  </head>
+  <body>
+
+    <!-- start navagation -->
+    <nav class="navbar navbar-default navbar-fixed-bottomnavbar-fixed-bottom" role="navigation" id="navigation">
+      <div class="container-fluid">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+	  </button>
+	  <a class="navbar-brand" href="/">YOJ</a>
+	</div>
+
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+            <li><a href="/" class="tooltip-test" data-toggle="tooltip" data-placement="bottom" title="Home page">Home</a></li>
+            <li><a href="/questions" class="tooltip-test" data-toggle="tooltip" data-placement="bottom" title="List of Questions">Questions</a></li>
+            <li><a href="/contest" class="tooltip-test" data-toggle="tooltip" data-placement="bottom" title="Current Contests">Contest</a></li>
+            <li><a href="/rank" class="tooltip-test" data-toggle="tooltip" data-placement="bottom" title="RankList">Rank</a></li>
+            {% if user.authority >= 2 %}
+            <li><a href="/design" class="tooltip-test" data-toggle="tooltip" data-placement="bottom" title="Question Design">Design</a></li>
+            {% end %}
+            {% if user.authority == 3 %}
+            <li><a href="/admin" class="tooltip-test" data-toggle="tooltip" data-placement="bottom" title="Administration">Admin</a></li>
+            {% end %}
+            <li><a href="/logout" class="tooltip-test" data-toggle="tooltip" data-placement="bottom" title="Logout">Logout</a></li>
+    </ul>
+	  
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search Problem" id="search">&nbsp&nbsp<a href="/"><span class="glyphicon glyphicon-search"></a>  <!--这里需要修改-->
+            </div>
+          </form>
+	  <div class="navbar-right nav navbar-nav">
+	    <p class="navbar-text">Hello, Sha bi {{user.nickname}}</p>
+	  </div>
+	</div><!-- /.container-fluid -->
+    </nav>
+
+    <!-- end navigation  -->
+
+
+    <!-- start main-->
+    <div class="container">
+      <div class="alert alert-danger" role="alert">No current Contest</div>
+    </div>
+	<!-- end main-->
+
+    <div class="container">
+      <div class="footer">
+	<span> powered by yejq 2015</span>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="{{static_url("js/main.js")}}"></script> 
+  </body>
+</html>

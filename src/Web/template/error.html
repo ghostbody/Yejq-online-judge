@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=nouser-scalable=no">
+    <title>yejq online judge</title>
+    <!-- Bootstrap-->
+    <link href="{{static_url('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{static_url('css/login.css')}}" rel="stylesheet">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins)-->
+    <script src="{{static_url('js/jquery-2.1.1.min.js')}}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed-->
+    <script src="{{static_url('js/bootstrap.min.js')}}"></script>
+  </head>
+  <body>
+    <nav id="navigation" role="navigation" class="navbar navbar-default navbar-fixed-bottomnavbar-fixed-bottom">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display-->
+        <div class="navbar-header">
+          <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">Yejq Online Judge</a>
+        </div>
+        <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li>
+            </li>
+            <li><a href="http://yejq.sinaapp.com/" data-toggle="tooltip" data-placement="bottom" title="About" class="tooltip-test">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!--start main-->
+    <div id="login_container" class="container">
+      <div role="alert" class="alert alert-danger"><span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span><span class="sr-only">Error:</span>{{message}}</div>
+    </div>
+    <!--end main-->
+  </body>
+</html>

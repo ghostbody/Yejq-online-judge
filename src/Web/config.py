@@ -1,7 +1,7 @@
 db_host = "localhost"
 db_user = "root"
 db_port = 3306
-db_password = "yezxcvbnm12"
+db_password = ""
 db_name = "YOJ2"
 db_charset = "UTF-8"
 system_data_path = "/home/xinyuan/Desktop/project2/data/"

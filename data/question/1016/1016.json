@@ -1,7 +1,0 @@
-[
-  {
-    "input": "",
-    "output": "size of char is 8\nchar max is 127\nchar\nmin is -128\nint min is -2147483648\nint max is 2147483647\nlong min is -9223372036854775808\nlong max is 9223372036854775807\nshort min is -32768\nshort max is 32767\nunsigned char max is 255\nunsigned long max is 18446744073709551615\nunsigned int max is 4294967295\nunsigned short max is 65535\n",
-    "score": "100"
-  }
-]
